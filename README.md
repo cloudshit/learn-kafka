@@ -50,3 +50,33 @@ max.interval=10000
 key.converter=org.apache.kafka.connect.storage.StringConverter
 iterations=-1
 ```
+
+## rds conf
+```ini
+connector.class=io.debezium.connector.mysql.MySqlConnector
+database.user=admin
+topic.prefix=order3-
+schema.history.internal.kafka.topic=orders2
+database.server.id=184054
+tasks.max=1
+database.hostname=wsi-db.cluster-cadxb1cncc5b.ap-northeast-2.rds.amazonaws.com
+database.password=password
+database.server.name=dev
+schema.history.internal.kafka.bootstrap.servers=b-1.wsicluster.suf97u.c4.kafka.ap-northeast-2.amazonaws.com:9098,b-2.wsicluster.suf97u.c4.kafka.ap-northeast-2.amazonaws.com:9098
+database.port=3306
+```
+
+## s3 source conf
+```ini
+connector.class=io.confluent.connect.s3.source.S3SourceConnector
+mode=GENERIC
+s3.region=ap-northeast-2
+topics.dir=
+format.class=io.confluent.connect.s3.format.json.JsonFormat
+confluent.topic.bootstrap.servers=b-1.wsicluster.suf97u.c4.kafka.ap-northeast-2.amazonaws.com:9098,b-2.wsicluster.suf97u.c4.kafka.ap-northeast-2.amazonaws.com:9098
+tasks.max=1
+value.converter.schemas.enable=false
+value.converter=org.apache.kafka.connect.json.JsonConverter
+topic.regex.list=orders:.*
+s3.bucket.name=wsi-source-objects
+```
