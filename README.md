@@ -54,16 +54,25 @@ iterations=-1
 ## rds conf
 ```ini
 connector.class=io.debezium.connector.mysql.MySqlConnector
+schema.history.internal.consumer.sasl.client.callback.handler.class=software.amazon.msk.auth.iam.IAMClientCallbackHandler
 database.user=admin
-topic.prefix=order3-
-schema.history.internal.kafka.topic=orders2
+schema.history.internal.producer.sasl.client.callback.handler.class=software.amazon.msk.auth.iam.IAMClientCallbackHandler
 database.server.id=184054
 tasks.max=1
-database.hostname=wsi-db.cluster-cadxb1cncc5b.ap-northeast-2.rds.amazonaws.com
-database.password=password
+schema.history.internal.consumer.sasl.jaas.config=software.amazon.msk.auth.iam.IAMLoginModule required;
 database.server.name=dev
 schema.history.internal.kafka.bootstrap.servers=b-1.wsicluster.suf97u.c4.kafka.ap-northeast-2.amazonaws.com:9098,b-2.wsicluster.suf97u.c4.kafka.ap-northeast-2.amazonaws.com:9098
+include.schema.changes=true
 database.port=3306
+topic.prefix=order3-
+schema.history.internal.kafka.topic=orders2
+schema.history.internal.producer.security.protocol=SASL_SSL
+database.hostname=wsi-db.cluster-cadxb1cncc5b.ap-northeast-2.rds.amazonaws.com
+database.password=password
+schema.history.internal.consumer.sasl.mechanism=AWS_MSK_IAM
+schema.history.internal.producer.sasl.jaas.config=software.amazon.msk.auth.iam.IAMLoginModule required;
+schema.history.internal.producer.sasl.mechanism=AWS_MSK_IAM
+schema.history.internal.consumer.security.protocol=SASL_SSL
 ```
 
 ## s3 source conf
